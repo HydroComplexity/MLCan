@@ -1,0 +1,19 @@
+		MLCanFace
+
+The requirements for this MLCanFace are:
+ - Minimum screen resolution: 1280 x 800
+ - Image processing MUST be installed in Matlab (for using "imshow" function)
+
+After downloading all the zip files from the website, please do the following steps:
+
+1. Extract zip file MLCanFace_Mac if you use Mac OS (MLCanFace_Win or MLCanFace_Linux if you use Windows or Linux) to your hard disk.
+
+2. Copy example folders inside Data_examples.zip to the main folder (MLCanFace_xxx). 
+   	
+3. Open Matlab
+
+4a. In the command window, type "guide". Then browse to the MLCanFace_xxx. Select main_MLCan.fig. Click the green arrow on the toolbar to run. Or
+
+4b. Simply right-click on main_MLCan.m file, select "Run File".
+
+ 
