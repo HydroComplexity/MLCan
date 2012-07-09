@@ -1,8 +1,7 @@
-		MLCanFace
+		MLCanFace (Version 1.0)
 
 The requirements for this MLCanFace are:
  - Minimum screen resolution: 1280 x 800
- - Image processing MUST be installed in Matlab (for using "imshow" function)
 
 After downloading all the zip files from the website, please do the following steps:
 
