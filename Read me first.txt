@@ -1,0 +1,23 @@
+		MLCanFace (Version 1.0)
+
+
+The model code is available in one of the following zip files depending upon the platform: 
+	- MLCanFace_Windows.zip
+	- MLCanFace_Mac.zip
+	- MLCanFace_Linux.zip
+
+Document/sample dataset is available in Tutorials.zip file.
+
+After downloading all the zip files from the website, please do the following steps:
+
+1. Extract zip file MLCanFace_xxx (xxx: Windows, Mac, or Linux) to your hard disk.
+   	
+2. Open Matlab
+
+3a. In the command window, type "guide". Then browse to the MLCanFace_xxx. Select main_MLCan.fig. Click the green arrow on the toolbar to run. Or
+
+3b. Goto the MLCanFace model in Matlab, simply right-click on main_MLCan.m file, select "Run File".
+
+(Remember to create your working folders inside the MLCanFace_xxx folder)
+
+ 

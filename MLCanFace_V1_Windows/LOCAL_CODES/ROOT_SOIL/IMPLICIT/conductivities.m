@@ -1,0 +1,66 @@
+function [krad,kax,etr,cnt1] = conductivities(nl_soil,z,dz,rootfr,roottr,...
+                                    rpp,smp,vol_liq,eff_porosity,...
+                                    K_rad,K_axs,hr,rhc,etr,cnt1)
+                                
+% Compute the radial and axial conductivities of the roots
+%-------------------------------------------------------------------------
+% Root conductativities (both radial and axial) for each soil layer are
+% obtained by weighting the conductivity of the root system by the root
+% distribution within the layer. The effect of soil moisture on root
+% conductivity is also taken into account.
+
+% Written by Juan Camilo Quijano, UIUC, 2008
+%
+%------------------------- Input Variables -------------------------------
+%       nl_soil     % Number of layers 
+%       z           % Vector with depth of midpoint of each layer [mm]
+%       dz          % Vector with Layer thicknesses information [mm]
+%       rootfr      % Fine root fraction in each layer
+%       roottr      % Tap root fraction in each layer
+%       rpp         % root potential
+%       smp         % soilwater potential
+%       vol_liq     % soil moisture
+%       eff_porosity % effective porosity
+%       K_rad       % Total radial conductivity
+%       K_axs       % Total axial conductivity
+%       hr          % Logial variable for hr [1. HR 0. NHR]
+%       rhc         % Root conductivity increases with depth
+%       etr         % Transpiration [mm]
+%       cnt1        % number of times the function is implemented
+%
+%------------------------- Output Variables ------------------------------
+%       C        % variable C. Rate of change of soil moisture with respect
+%                  to soil matric pressure.
+%
+%-------------------------------------------------------------------------
+
+for i = 1:nl_soil
+
+    % for radial conductivity, root fraction is used as a weighting factor,
+    % because the uptake from a layer is proportional to the total surface 
+    % area of roots in that layer. Thus, 
+    krad(i,1) = rootfr(i) * K_rad * vol_liq(i)/eff_porosity(i);          
+
+    % for axial conductivity, root density is used as a weighting factor,
+    % because the flow is proportional to the total x-sectional area of  
+    % the roots in that layer. Thus,                       
+    kax(i,1) = (roottr(i)/dz(i))*K_axs ...
+             * vol_liq(i)/eff_porosity(i);                            
+
+end
+
+% For the case where the root hydraulic conductivity is allowed to increase
+% with depth, a linear increasing effect is considered
+if rhc == 1     % if conductivity is allowed to increases with depth
+    krad = krad + (z/1000).*krad;   % linearly increasing 
+    kax  = kax + (z/1000).*kax;
+end                               
+
+if hr == 0
+   vec=(smp<rpp);
+   krad(vec)=0;
+   if max(krad)==0
+       etr=0;cnt1=1;
+   end   
+end   
+   

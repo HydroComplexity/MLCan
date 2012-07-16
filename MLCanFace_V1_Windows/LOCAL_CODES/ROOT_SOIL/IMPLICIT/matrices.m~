@@ -1,0 +1,73 @@
+function [A,KK,GG,CC,KKr] = matrices(Ne,Ce,Ke,dz,dt,ft,fb,zsoi,krad)
+%=========================================================================
+% This code computes the matrices that compose the linear system of the 
+% fully implicit scheme. The matrices computed in thise code are based on
+% the first type boundary conditions which is a flux boundary condition.
+%
+% Written by Juan Camilo Quijano, UIUC, 2008
+%
+%------------------------- Input Variables -------------------------------
+%       Ne       % Number of layers
+%       Ce       % Value of parameter C for each layer. Size (Ne x 1) 
+%       ke       % Hydraulic conductivity in all the boundaries between layers
+%                  Size (Ne-1 x 1)  
+%       dz       % Thickness of each layer. Size (Ne x 1) 
+%       dt       % time for the time step 
+%       ft       % Flux boundary condition at the top.
+%       fb       % Flux boundary condition at the botoom.
+%       zsoi        % Vector with depth of midpoint of each layer [mm]
+       
+
+
+%       psi0     % BC 1. Soil Matric Pressure at the top of the column.
+%                  it is assumed that pressure in first layer is psi0 for all time  
+%       psiN     % BC 2.Soil Matric Pressure at the top of the column. 
+%                  it is assumed that pressure in deepest layer is psiN for all time  
+%
+%------------------------- Output Variables ------------------------------
+% This code gives as output the matrices A, KK, GG CC according to 
+% equation   P'(A+CC)=(GG+KK+CC*P-(thn-th)/dt)
+% where P' is matric pressure in new iteration, P is matric pressure in old iteration
+% thn is soil moisture in previous iteration th is soil moisture in the
+% previous time step and dt is the time of each time step.
+%
+%-------------------------- Unit Conversions -----------------------------
+
+[den]=createden(Ne,zsoi);
+
+
+%FIRST VALUES
+%Matrix A
+A(1,1)=(1/(dz(1)))*(Ke(1)/den(1));
+A(1,2)=-(1/(dz(1)))*(Ke(1)/den(1));
+
+A(Ne,Ne)=(1/(dz(Ne)))*(Ke(Ne-1)/den(Ne-1));
+A(Ne,Ne-1)=-(1/(dz(Ne)))*(Ke(Ne-1)/den(Ne-1));
+
+%Vector CC
+CC(1,1)=(Ce(1)/dt); 
+CC(Ne,Ne)=(Ce(Ne)/dt);
+
+%Vector GG
+GG=zeros(Ne,1);
+GG(1)=ft/(dz(1));
+GG(Ne)=-fb/(dz(Ne));
+
+%Vector KK
+KK(1)=-(1/(dz(1)))*(Ke(1)); 
+KK(Ne,1)=(1/(dz(Ne)))*(Ke(Ne-1));
+
+%THE REST FILLED WITH A LOOP
+% The loop is row by row
+for i=2:1:Ne-1;
+    %Matrix A
+    A(i,i-1)=-(1/(dz(i)))*(Ke(i-1)/den(i-1));     
+    A(i,i+1)=-(1/(dz(i)))*(Ke(i)/den(i));   
+    A(i,i)=(1/(dz(i)))*(Ke(i-1)/den(i-1)+Ke(i)/den(i));  
+    %Vector KK
+    KK(i,1)=-(1/(dz(i)))*(Ke(i)-Ke(i-1)); 
+    %Vector CC
+    CC(i,i)=(Ce(i))/(dt);
+end
+krad=krad./dz';
+KKr=diag(krad); 

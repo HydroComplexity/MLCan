@@ -1,0 +1,118 @@
+% Plot Diurnal Canopy Shortwave Radiation Absorption and Emittance
+    minAn = min([min(min(An_canopy_diurnal_prof)), min(min(An_sun_diurnal_prof)), min(min(An_shade_diurnal_prof))]);  
+    maxAn = max([max(max(An_canopy_diurnal_prof)), max(max(An_sun_diurnal_prof)), max(max(An_shade_diurnal_prof))]); 
+    
+    minLE = min([min(min(LE_canopy_diurnal_prof)), min(min(LE_sun_diurnal_prof)), min(min(LE_shade_diurnal_prof))]);  
+    maxLE = max([max(max(LE_canopy_diurnal_prof)), max(max(LE_sun_diurnal_prof)), max(max(LE_shade_diurnal_prof))]); 
+    
+    minH = min([min(min(H_canopy_diurnal_prof)), min(min(H_sun_diurnal_prof)), min(min(H_shade_diurnal_prof))]);  
+    maxH = max([max(max(H_canopy_diurnal_prof)), max(max(H_sun_diurnal_prof)), max(max(H_shade_diurnal_prof))]); 
+    
+    minRn = min([min(min(Rnrad_canopy_diurnal_prof)), min(min(Rnrad_sun_diurnal_prof)), min(min(Rnrad_shade_diurnal_prof))]);  
+    maxRn = max([max(max(Rnrad_canopy_diurnal_prof)), max(max(Rnrad_sun_diurnal_prof)), max(max(Rnrad_shade_diurnal_prof))]); 
+        
+    
+    hcan   = PARAMS.CanStruc.hcan;
+    
+    figure(fignum); clf
+    % An
+        subplot(3,4,1)
+            pcolor(hr, zhc/hcan, An_canopy_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minAn maxAn])
+            title('\bf An CANOPY [\mumol m^{-2} s^{-1}]')
+            ylabel('\bf z / h')
+        subplot(3,4,5)
+            pcolor(hr, zhc/hcan, An_sun_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minAn maxAn])
+            title('\bf An SUNLIT [\mumol m^{-2} s^{-1}]')
+            ylabel('\bf z / h')
+        subplot(3,4,9)
+            pcolor(hr, zhc/hcan, An_shade_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minAn maxAn])
+            title('\bf An SHADED [\mumol m^{-2} s^{-1}]')
+            ylabel('\bf z / h')
+           
+    % LE
+        subplot(3,4,2)
+            pcolor(hr, zhc/hcan, LE_canopy_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minLE maxLE])
+            title('\bf LE CANOPY [W m^{-2}]')
+            ylabel('\bf z / h')
+        subplot(3,4,6)
+            pcolor(hr, zhc/hcan, LE_sun_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minLE maxLE])
+            title('\bf LE SUNLIT [W m^{-2}]')
+            ylabel('\bf z / h')
+        subplot(3,4,10)
+            pcolor(hr, zhc/hcan, LE_shade_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minLE maxLE])
+            title('\bf LE SHADED [W m^{-2}]')
+            ylabel('\bf z / h')
+            
+    % H
+        subplot(3,4,3)
+            hold on
+            pcolor(hr, zhc/hcan, H_canopy_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minH maxH])
+            %axis([0 23.5 znc(vinds(1)) 1])
+            title('\bf H CANOPY [W m^{-2}]')
+            ylabel('\bf z / h')
+            axis tight
+        subplot(3,4,7)
+            hold on
+            pcolor(hr, zhc/hcan, H_sun_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minH maxH])
+            %axis([0 23.5 znc(vinds(1)) 1])
+            title('\bf H SUNLIT [W m^{-2}]')
+            ylabel('\bf z / h')
+            axis tight
+        subplot(3,4,11)
+            hold on
+            pcolor(hr, zhc/hcan, H_shade_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minH maxH])
+            %axis([0 23.5 znc(vinds(1)) 1])
+            title('\bf H SHADED [W m^{-2}]')
+            ylabel('\bf z / h')
+            axis tight
+            
+    % Rnrad
+        subplot(3,4,4)
+            pcolor(hr, zhc/hcan, Rnrad_canopy_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minRn maxRn])
+            title('\bf Rn CANOPY [W m^{-2}]')
+            ylabel('\bf z / h')
+        subplot(3,4,8)
+            pcolor(hr, zhc/hcan, Rnrad_sun_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minRn maxRn])
+            title('\bf Rn SUNLIT [W m^{-2}]')
+            ylabel('\bf z / h')
+        subplot(3,4,12)
+            pcolor(hr, zhc/hcan, Rnrad_shade_diurnal_prof)
+            shading interp
+            colorbar
+            caxis([minRn maxRn])
+            title('\bf Rn SHADED [W m^{-2}]')
+            ylabel('\bf z / h')        
+     
