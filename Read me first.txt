@@ -22,10 +22,6 @@ Click the green arrow on the toolbar to run. Or
 
 (Remember to create your working folders inside the MLCanFace_xxx folder)
 
-<<<<<<< HEAD
-End.
-=======
 [Please read the "About" page from the Help Menu on important details regarding use and citation of the model].
 
->>>>>>> remove m~
  
